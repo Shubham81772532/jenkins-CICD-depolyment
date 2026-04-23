@@ -14,12 +14,12 @@ pipeline {
 
     stages {
           
-        stage('Check Java') 
+        stage('Check Java') {
            steps {
-           sh 'echo $JAVA_HOME'
-           sh 'java -version'
-        }
-
+               sh 'echo $JAVA_HOME'
+               sh 'java -version'
+             }
+       }
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
