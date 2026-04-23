@@ -16,7 +16,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/YOUR-REAL-REPO.git'
+                git 'https://github.com/Shubham81772532/jenkins-CICD-depolyment.git'
             }
         }
 
