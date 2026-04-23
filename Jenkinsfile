@@ -14,11 +14,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git 'https://github.com/Shubham81772532/jenkins-CICD-depolyment.git'
-            }
-        }
 
         stage('Build') {
             steps {
