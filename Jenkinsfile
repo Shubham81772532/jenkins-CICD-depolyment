@@ -8,13 +8,15 @@ pipeline {
 
     environment {
         IMAGE_NAME = "smart-calculator"
+        CONTAINER_NAME = "smart-container"
+        PORT = "8081"
     }
 
     stages {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/your-username/calculator-app.git'
+                git 'https://github.com/YOUR-REAL-REPO.git'
             }
         }
 
@@ -51,9 +53,9 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 sh '''
-                docker stop smart-container || true
-                docker rm smart-container || true
-                docker run -d -p 8080:8080 --name smart-container $IMAGE_NAME
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
+                docker run -d -p $PORT:8080 --name $CONTAINER_NAME $IMAGE_NAME
                 '''
             }
         }
