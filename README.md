@@ -187,22 +187,18 @@ curl http://<vm-ip>:8081
 
 ### 🚀 CI/CD Pipeline Success
 
-![Pipeline](./pipeline-success.png)
-
+![Pipeline](./Pipelien-image.png)
 ---
 
 ### 🧪 Test Execution
 
-![Tests](./test-results.png)
-
----
+![Test](./test-results.png)
 
 ### 🔗 GitHub Webhook (200 OK)
 
 ![Webhook](./webhook-success.png)
 
 ---
-
 ## ❗ Common Issues & Fixes
 
 ### 🔴 Webhook not working
