@@ -3,25 +3,31 @@
 ## 📌 Project Overview
 
 This project demonstrates a complete **CI/CD pipeline** using Jenkins, Maven, Docker, and GitHub Webhooks.
-The pipeline automatically builds, tests, and deploys a Java application whenever code is pushed to GitHub.
+Whenever code is pushed to GitHub, Jenkins automatically:
+
+* Builds the project
+* Runs test cases
+* Packages the application
+* Builds a Docker image
+* Deploys the application in a container
 
 ---
 
 ## 🛠️ Tech Stack
 
-* Java (JDK 21)
-* Maven
-* Jenkins
-* Docker
-* GitHub
-* ngrok
+* ☕ Java (JDK 21)
+* 📦 Maven
+* ⚙️ Jenkins
+* 🐳 Docker
+* 🔗 GitHub Webhooks
+* 🌐 ngrok
 
 ---
 
 ## ⚙️ CI/CD Workflow
 
-```text
-Git Push → GitHub Webhook → ngrok → Jenkins → Maven Build → Docker Build → Container Deployment
+```
+Git Push → GitHub Webhook → ngrok → Jenkins → Maven Build → Docker Build → Deploy Container
 ```
 
 ---
@@ -52,7 +58,7 @@ Git Push → GitHub Webhook → ngrok → Jenkins → Maven Build → Docker Bui
 
 ### 2️⃣ Start Jenkins
 
-Access Jenkins:
+Access Jenkins UI:
 
 ```
 http://<your-vm-ip>:8080
@@ -62,47 +68,24 @@ http://<your-vm-ip>:8080
 
 ### 3️⃣ Configure Jenkins
 
-* Install Plugins:
+### 🔹 Install Plugins
 
-  * Git Plugin
-  * GitHub Integration Plugin
-  * Docker Pipeline Plugin
+* Git Plugin
+* GitHub Integration Plugin
+* Docker Pipeline Plugin
 
-* Configure Tools:
+### 🔹 Configure Tools
 
-  * JDK
-  * Maven
-
----
-
-### 4️⃣ Setup GitHub Webhook
-
-Go to GitHub repo:
-
-```
-Settings → Webhooks → Add Webhook
-```
-
-Set:
-
-```
-Payload URL:
-https://<ngrok-url>/github-webhook/
-```
-
-Content type:
-
-```
-application/json
-```
+* JDK → jdk21
+* Maven → maven
 
 ---
 
-## 🌐 Using ngrok (Important)
+## 🌐 ngrok Setup (Important)
 
-ngrok is used to expose your local Jenkins server to GitHub.
+Expose Jenkins to GitHub using ngrok.
 
-### Start ngrok:
+### ▶️ Start ngrok
 
 ```bash
 ngrok http 8080
@@ -114,16 +97,29 @@ ngrok http 8080
 https://abcd1234.ngrok-free.dev
 ```
 
-👉 Use this in webhook:
+---
+
+## 🔗 GitHub Webhook Setup
+
+Go to:
 
 ```
-https://abcd1234.ngrok-free.dev/github-webhook/
+Repository → Settings → Webhooks → Add Webhook
 ```
 
-⚠️ Note:
+### Configure:
 
-* ngrok URL changes every restart
-* Keep ngrok running
+Payload URL:
+
+```
+https://<ngrok-url>/github-webhook/
+```
+
+Content Type:
+
+```
+application/json
+```
 
 ---
 
@@ -147,18 +143,17 @@ docker run -d -p 8081:8080 --name smart-container smart-calculator
 
 1. Checkout Code
 2. Build (Maven)
-3. Run Tests (JUnit)
-4. Package (JAR)
-5. Build Docker Image
-6. Deploy Container
+3. Run Tests
+4. Publish Test Results
+5. Package
+6. Build Docker Image
+7. Deploy Application
 
 ---
 
 ## ▶️ Trigger Pipeline
 
-### Automatic:
-
-* Push code to GitHub
+### Automatic Trigger:
 
 ```bash
 git add .
@@ -166,21 +161,21 @@ git commit -m "update"
 git push
 ```
 
-### Manual:
+### Manual Trigger:
 
-* Click **Build Now** in Jenkins
+Click **Build Now** in Jenkins
 
 ---
 
 ## 🔍 Verify Deployment
 
-Check running container:
+Check container:
 
 ```bash
 docker ps
 ```
 
-Test application:
+Test app:
 
 ```bash
 curl http://<vm-ip>:8081
@@ -188,27 +183,51 @@ curl http://<vm-ip>:8081
 
 ---
 
-## ❗ Common Issues
+## 📸 Project Screenshots
 
-### 🔴 Webhook not triggering
+### 🚀 CI/CD Pipeline Success
+
+![Pipeline](./pipeline-success.png)
+
+---
+
+### 🧪 Test Execution
+
+![Tests](./test-results.png)
+
+---
+
+### 🔗 GitHub Webhook (200 OK)
+
+![Webhook](./webhook-success.png)
+
+---
+
+## ❗ Common Issues & Fixes
+
+### 🔴 Webhook not working
 
 * Ensure ngrok is running
-* Check webhook URL
+* Check correct webhook URL
 
-### 🔴 Docker permission error
+---
+
+### 🔴 JAVA_HOME issue
+
+* Configure correct JDK path in Jenkins
+
+---
+
+### 🔴 Docker permission issue
 
 ```bash
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 ```
 
-### 🔴 JAVA_HOME issue
-
-* Ensure correct Java path is configured
-
 ---
 
-## 📈 Future Improvements
+## 📈 Future Enhancements
 
 * Push Docker image to Docker Hub
 * Deploy to Kubernetes
@@ -219,10 +238,10 @@ sudo systemctl restart jenkins
 
 ## 👨‍💻 Author
 
-Shubham Navale
+**Shubham Navale**
 
 ---
 
 ## ⭐ Conclusion
 
-This project demonstrates a complete CI/CD pipeline with automated build, test, and deployment using Jenkins and Docker.
+This project demonstrates a real-world CI/CD pipeline with automated build, test, and deployment using Jenkins and Docker.
